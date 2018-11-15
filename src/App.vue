@@ -9,7 +9,7 @@
       <span class="mdl-layout-title">Hapnn</span>
       <nav class="mdl-navigation">
         <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu">Home</router-link>
-        <router-link class="mdl-navigation__link" to="/post" @click.native="hideMenu">Post an update</router-link>
+        <router-link class="mdl-navigation__link" to="/update" @click.native="hideMenu">Post an update</router-link>
       </nav>
     </div>
     <main class="mdl-layout__content">

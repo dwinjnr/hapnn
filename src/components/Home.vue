@@ -7,8 +7,8 @@
           <div class="image-card__post">
             <img :src="post.photo" />
           </div>
-          <div class="image-card__comment mdl-card__actions">
-            <span>{{ post.post }}<br> - {{post.name}}<br>{{post.time}}</span>
+          <div class="image-card__comment mdl-card__actions" style="text-align:left;">
+            <span>{{ post.post }}<br><br>by {{post.name}}<br>{{post.time}}</span>
           </div>
         </div>
       </div>

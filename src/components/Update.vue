@@ -4,12 +4,11 @@
       <div class="mdl-cell mdl-cell--3-col mdl-cell mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
       <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
         <div class="mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" type="text" id="name" v-model="update.name">
-          <label class="mdl-textfield__label" for="name">Name</label>
+          <input placeholder="Name" v-model="update.name" type="text">
         </div>
+        <div></div>
         <div class="mdl-textfield mdl-js-textfield">
-          <textarea class="mdl-textfield__input" type="text" id="post" v-model="update.post"></textarea>
-          <label class="mdl-textfield__label" for="body">Body</label>
+          <textarea placeholder="Body" v-model="update.post" type="text"></textarea>
         </div>
         <br>
         <p class="p-title">Select an Image</p>
@@ -74,5 +73,21 @@ export default {
 }
 .add-btn {
   margin-top: 20px;
+}
+input, textarea {
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,.12);
+  display: block;
+  font-size: 16px;
+  font-family: "Helvetica","Arial",sans-serif;
+  margin: 0;
+  padding: 4px 0;
+  width: 100%;
+  background: 0 0;
+  text-align: left;
+  color: inherit;
+}
+input:focus, textarea:focus {
+  outline: none;
 }
 </style>

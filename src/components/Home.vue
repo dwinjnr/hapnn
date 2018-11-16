@@ -3,12 +3,12 @@
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--3-col mdl-cell mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
       <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
-        <div v-for="post in this.$root.updates" class="image-card" :key="post.name">
+        <div v-for="post in updates" class="image-card" :key="post.name">
           <div class="image-card__post">
             <img :src="post.photo" />
           </div>
           <div class="image-card__comment mdl-card__actions" style="text-align:left;">
-            <span>{{ post.post }}<br><br>by {{post.name}}<br>{{post.created_at}}</span>
+            <span>{{ post.post }}<br><br>by {{post.name}}<br>{{post.time}}</span>
           </div>
         </div>
       </div>
@@ -21,6 +21,11 @@ export default {
   name: 'home',
   data () {
     return {
+    }
+  },
+  computed: {
+    updates () {
+      return this.$root.updates.sort((a, b) => b.created_at - a.created_at)
     }
   }
 }

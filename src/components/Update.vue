@@ -42,7 +42,7 @@ export default {
         name: '',
         post: '',
         photo: '',
-        time: ''
+        created_at: ''
       }
     }
   },
@@ -52,9 +52,8 @@ export default {
     },
     updatePost () {
       let date = new Date()
-      this.update.time = `${date.getHours()}:${date.getMinutes()}`
-      let updateToStore = this.update
-      console.log(updateToStore)
+      this.update.created_at = `${date.getHours()}:${date.getMinutes()}`
+      this.$root.$firebaseRefs.updates.push(this.update).then(this.$router.push('/'))
     }
   }
 }

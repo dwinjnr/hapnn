@@ -1,6 +1,6 @@
 # hapnn
 
-> A trend update web application that lets users  trendspost 
+> A progressive web application that lets users post trending updates (work in progress)
 
 ## Build Setup
 

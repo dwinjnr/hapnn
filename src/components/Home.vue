@@ -3,12 +3,12 @@
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--3-col mdl-cell mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
       <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
-        <div v-for="post in updates" class="image-card" :key="post.id">
+        <div v-for="post in this.$root.updates" class="image-card" :key="post.name">
           <div class="image-card__post">
             <img :src="post.photo" />
           </div>
           <div class="image-card__comment mdl-card__actions" style="text-align:left;">
-            <span>{{ post.post }}<br><br>by {{post.name}}<br>{{post.time}}</span>
+            <span>{{ post.post }}<br><br>by {{post.name}}<br>{{post.created_at}}</span>
           </div>
         </div>
       </div>
@@ -17,12 +17,10 @@
 </template>
 
 <script>
-import data from '../data'
 export default {
   name: 'home',
   data () {
     return {
-      updates: data.updates
     }
   }
 }

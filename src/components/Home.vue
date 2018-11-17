@@ -25,8 +25,27 @@ export default {
   },
   computed: {
     updates () {
-      return this.$root.updates.sort((a, b) => b.created_at - a.created_at)
+      return navigator.onLine ? this.sorted(this.$root.updates) : this.sorted(JSON.parse(localStorage.getItem('updates')))
     }
+  },
+  methods: {
+    sorted (data) {
+      return data.sort((a, b) => b.created_at - a.created_at)
+    },
+    saveUpdatesToCache () {
+      this.$root.$firebaseRefs.updates.orderByChild('created_at').once('value', (snapchot) => {
+        let cachedUpdates = []
+        snapchot.forEach((updateSnapchot) => {
+          let cachedUpdate = updateSnapchot.val()
+          cachedUpdate['.key'] = updateSnapchot.key
+          cachedUpdates.push(cachedUpdate)
+        })
+        localStorage.setItem('updates', JSON.stringify(cachedUpdates))
+      })
+    }
+  },
+  mounted () {
+    this.saveUpdatesToCache()
   }
 }
 </script>

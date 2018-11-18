@@ -4,7 +4,7 @@
       <div class="mdl-cell mdl-cell--3-col mdl-cell mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
       <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
         <div class="mdl-textfield mdl-js-textfield">
-          <input placeholder="Name" v-model="update.name" type="text">
+          <input placeholder="@twitterhandle" v-model="update.name" type="text">
         </div>
         <div></div>
         <div class="mdl-textfield mdl-js-textfield">
@@ -52,8 +52,7 @@ export default {
       this.update.photo = `../..${img.src}`
     },
     updatePost () {
-      let date = new Date()
-      this.update.time = `${date.getHours()}:${date.getMinutes()}`
+      this.update.time = new Date().toLocaleString()
       this.update.created_at = new Date().getTime()
       this.$root.$firebaseRefs.updates.push(this.update).then(this.$router.push('/'))
     }

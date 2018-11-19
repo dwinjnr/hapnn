@@ -1,6 +1,6 @@
 # hapnn
 
-> A progressive web application that lets users post trending updates (work in progress)
+> A progressive web application that lets users view and post anonymously (work in progress)
 
 ## Build Setup
 

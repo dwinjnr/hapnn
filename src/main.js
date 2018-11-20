@@ -7,6 +7,7 @@ import 'material-design-lite/material.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 require('material-design-lite')
+require('bootstrap')
 
 Vue.config.productionTip = false
 

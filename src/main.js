@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import NewsApi from 'newsapi'
 import 'material-design-lite/material.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
@@ -10,8 +11,9 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 require('material-design-lite')
 require('bootstrap')
 
-Vue.config.productionTip = false
+Object.defineProperty(Vue.prototype, '$newsapi', { value: new NewsApi('153ca5720f0446428f2fbfe54c7d0a08') })
 
+Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -8,13 +8,18 @@
     <div class="mdl-layout__drawer">
       <span class="mdl-layout-title">Hapnn</span>
       <nav class="mdl-navigation">
-        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu">Home</router-link>
-        <router-link class="mdl-navigation__link" to="/update" @click.native="hideMenu">Post an update</router-link>
+        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu('')">All</router-link>
+        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu('business')">Business</router-link>
+        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu('entertainment')">Entertainment</router-link>
+        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu('health')">Health</router-link>
+        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu('science')">Science</router-link>
+        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu('sports')">Sports</router-link>
+        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu('technology')">Technology</router-link>
       </nav>
     </div>
     <main class="mdl-layout__content">
       <div class="page-content">
-        <router-view></router-view>
+        <router-view :category = "category"></router-view>
       </div>
     </main>
   </div>
@@ -23,8 +28,14 @@
 <script>
 export default {
   name: 'app',
+  data () {
+    return {
+      category: ''
+    }
+  },
   methods: {
-    hideMenu: function () {
+    hideMenu: function (category) {
+      this.category = category
       document.getElementsByClassName('mdl-layout__drawer')[0].classList.remove('is-visible')
       document.getElementsByClassName('mdl-layout__obfuscator')[0].classList.remove('is-visible')
     }

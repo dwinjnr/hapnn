@@ -13,7 +13,7 @@
             <a href="#" class="btn btn-primary">Go somewhere</a>
           </div> -->
           <p v-for="(article, index) in articles" :key="index">
-            {{article.content}}
+            {{article.title}}
           </p>
         </div>
       </div>
@@ -22,26 +22,32 @@
 </template>
 
 <script>
-import NewsApi from 'newsapi'
 export default {
   name: 'home',
   data () {
     return {
-      newsapi: new NewsApi('153ca5720f0446428f2fbfe54c7d0a08'),
-      usUrl: 'https://newsapi.org/v2/top-headlines?country=us&apiKey=153ca5720f0446428f2fbfe54c7d0a08',
       articles: []
     }
   },
+  props: ['category'],
+  watch: {
+    category (newCategory, oldCategory) {
+      this.fetchNews()
+    }
+  },
+  methods: {
+    fetchNews () {
+      this.$newsapi.v2.topHeadlines({
+        category: this.category,
+        country: 'ng'
+      }).then(response => {
+        this.articles = response.articles
+        console.log(response)
+      }).catch(error => console.log(error))
+    }
+  },
   created () {
-    this.newsapi.v2.topHeadlines({
-      q: 'bitcoin',
-      category: 'business',
-      language: 'en',
-      country: 'us'
-    }).then(response => {
-      this.articles = response.articles
-      console.log(response)
-    }).catch(error => console.log(error))
+    this.fetchNews()
   }
 }
 </script>

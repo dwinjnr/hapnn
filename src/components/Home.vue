@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import idb from 'idb'
 export default {
   name: 'home',
   data () {
@@ -34,11 +35,29 @@ export default {
     }
   },
   methods: {
+    dbPromise () {
+      // If the browser doesn't support service worker,
+      // we don't care about having a database
+      if (!navigator.serviceWorker) {
+        return Promise.resolve()
+      }
+      return idb.open('hapnn', 1, upgradeDb => {
+        upgradeDb.createObjectStore('hapnns', {
+          keyPath: 'publishedAt'
+        })
+      })
+    },
     fetchNews () {
       this.$newsapi.v2.topHeadlines({
         category: this.category,
         country: 'ng'
       }).then(response => {
+        this.dbPromise().then(db => {
+          let store = db.transaction('hapnns', 'readwrite').objectStore('hapnns')
+          response.articles.forEach(hapnn => {
+            store.put(hapnn)
+          })
+        })
         this.articles = response.articles
         console.log(response)
       }).catch(error => console.log(error))

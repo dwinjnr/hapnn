@@ -58,11 +58,17 @@ export default {
             response.articles.forEach(hapnn => {
               store.put(hapnn)
             })
+            // limit store to 20 items
+            store.openCursor(null, 'prev').then(cursor => {
+              return cursor.advance(20)
+            }).then(function deleteRest (cursor) {
+              if (!cursor) return
+              cursor.delete()
+              return cursor.continue().then(deleteRest)
+            })
           })
           this.articles = response.articles
-          console.log(response)
         }).catch(error => console.log(error))
-        console.log('online')
       } else {
         this.dbPromise().then(db => {
           let storedArticles = db.transaction('hapnns').objectStore('hapnns').getAll()

@@ -3,13 +3,18 @@
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--3-col mdl-cell mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
       <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
-        <div v-for="post in updates" class="image-card" :key="post.name">
-          <div class="image-card__post">
-            <img :src="post.photo" />
+        <!-- <div class="card">
+          <div class="card-header">
+            Featured
           </div>
-          <div class="image-card__comment mdl-card__actions" style="text-align:left;">
-            <span>{{ post.post }}<br><br>by {{post.name}}<br>{{post.time}}</span>
-          </div>
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div> -->
+          <p v-for="(article, index) in articles" :key="index">
+            {{article.title}}
+          </p>
         </div>
       </div>
     </div>
@@ -21,71 +26,33 @@ export default {
   name: 'home',
   data () {
     return {
+      articles: []
     }
   },
-  computed: {
-    updates () {
-      return navigator.onLine ? this.sorted(this.$root.updates) : this.sorted(JSON.parse(localStorage.getItem('updates')))
+  props: ['category'],
+  watch: {
+    category (newCategory, oldCategory) {
+      this.fetchNews()
     }
   },
   methods: {
-    sorted (data) {
-      return data.sort((a, b) => b.created_at - a.created_at)
-    },
-    saveUpdatesToCache () {
-      this.$root.$firebaseRefs.updates.orderByChild('created_at').once('value', (snapchot) => {
-        let cachedUpdates = []
-        snapchot.forEach((updateSnapchot) => {
-          let cachedUpdate = updateSnapchot.val()
-          cachedUpdate['.key'] = updateSnapchot.key
-          cachedUpdates.push(cachedUpdate)
-        })
-        localStorage.setItem('updates', JSON.stringify(cachedUpdates))
-      })
+    fetchNews () {
+      this.$newsapi.v2.topHeadlines({
+        category: this.category,
+        country: 'ng'
+      }).then(response => {
+        this.articles = response.articles
+        console.log(response)
+      }).catch(error => console.log(error))
     }
   },
-  mounted () {
-    this.saveUpdatesToCache()
+  created () {
+    this.fetchNews()
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.image-card {
-  position: relative;
-  margin-bottom: 8px;
-}
-.image-card__post > img {
-  width:100%;
-}
-.image-card__comment {
-  position: absolute;
-  bottom: 0;
-  padding: 16px;
-  text-align: right;
-  background: rgba(0, 0, 0, 0.5);
-}
-.image-card__comment > span {
-  color: #fff;
-  font-size: 14px;
-  font-weight: bold;
-}
-h1, h2 {
-  font-weight: normal;
-}
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #35495E;
-}
 </style>

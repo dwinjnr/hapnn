@@ -58,6 +58,14 @@ header span {
   color: #2c3e50;
 }
 
+.mdl-layout__drawer-button {
+  line-height: 51px !important;
+}
+
+.mdl-layout-title {
+  margin-top: -4px !important;
+}
+
 main {
   text-align: center;
   margin-top: 40px;
@@ -65,9 +73,10 @@ main {
 
 header {
   margin: 0;
-  height: 56px;
+  height: 57px !important;
+  min-height: 57px !important;
   padding: 0 16px 0 24px;
-  background-color: #35495E;
+  background-color: #ad3399 !important;
   color: #ffffff;
 }
 

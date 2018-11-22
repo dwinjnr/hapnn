@@ -3,13 +3,13 @@
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--3-col mdl-cell mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
       <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
-        <div class="card">
-          <h3>Lorem ipsum kjsh ahhd js jbja  djs s opeside down just gthp</h3>
-          <img src="static/img/dr-evil.jpg">
-          <p>Descriprion ipsum kjsh ahhd js jbja  djs s opeside down just gthpipsum 
-            kjsh ahhd js jbja  djs s opeside down just gthpipsum kjsh ahhd js jbja  djs s opeside down just gthp</p>
+        <div class="card" v-for="(article, index) in articles" :key="index">
+          <h3>{{article.title}}</h3>
+          <small>{{article.publishedAt}}</small>
+          <img :src="article.urlToImage ? article.urlToImage : 'static/img/no-image.jpg'">
+          <p>{{article.description ? article.description : 'Desciption not avalaible'}}</p>
           <div class="more">
-            <a href="#" class="card-link">
+            <a :href="article.url" class="card-link">
               Read more
             </a>
           </div>

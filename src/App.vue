@@ -70,7 +70,7 @@ header {
   height: 57px !important;
   min-height: 57px !important;
   padding: 0 16px 0 24px;
-  background-color: #ad3399 !important;
+  background-color: #328839 !important;
   color: #ffffff;
 }
 

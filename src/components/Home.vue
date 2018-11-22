@@ -41,7 +41,7 @@ export default {
       if (!navigator.serviceWorker) {
         return Promise.resolve()
       }
-      return idb.open('hapnn', 1, upgradeDb => {
+      return idb.open(`hapnn-${this.category}`, 1, upgradeDb => {
         upgradeDb.createObjectStore('hapnns', {
           keyPath: 'publishedAt'
         })
@@ -50,7 +50,7 @@ export default {
     fetchNews () {
       if (navigator.onLine) {
         this.$newsapi.v2.topHeadlines({
-          category: this.category,
+          category: this.category === 'all' ? '' : this.category,
           country: 'ng'
         }).then(response => {
           this.dbPromise().then(db => {

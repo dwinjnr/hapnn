@@ -8,7 +8,12 @@ export default new Router({
   routes: [
     {
       path: '/',
+      redirect: '/all'
+    },
+    {
+      path: '/:category',
       name: 'home',
+      props: true,
       component: Home
     }
   ]

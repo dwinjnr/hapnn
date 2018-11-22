@@ -8,18 +8,18 @@
     <div class="mdl-layout__drawer">
       <span class="mdl-layout-title">Hapnn</span>
       <nav class="mdl-navigation">
-        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu('')">All</router-link>
-        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu('business')">Business</router-link>
-        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu('entertainment')">Entertainment</router-link>
-        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu('health')">Health</router-link>
-        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu('science')">Science</router-link>
-        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu('sports')">Sports</router-link>
-        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu('technology')">Technology</router-link>
+        <router-link class="mdl-navigation__link" to="/all" @click.native="hideMenu">All</router-link>
+        <router-link class="mdl-navigation__link" to="/business" @click.native="hideMenu">Business</router-link>
+        <router-link class="mdl-navigation__link" to="/entertainment" @click.native="hideMenu">Entertainment</router-link>
+        <router-link class="mdl-navigation__link" to="/health" @click.native="hideMenu">Health</router-link>
+        <router-link class="mdl-navigation__link" to="/science" @click.native="hideMenu">Science</router-link>
+        <router-link class="mdl-navigation__link" to="/sports" @click.native="hideMenu">Sports</router-link>
+        <router-link class="mdl-navigation__link" to="/technology" @click.native="hideMenu">Technology</router-link>
       </nav>
     </div>
     <main class="mdl-layout__content">
       <div class="page-content">
-        <router-view :category = "category"></router-view>
+        <router-view></router-view>
       </div>
     </main>
   </div>
@@ -28,14 +28,8 @@
 <script>
 export default {
   name: 'app',
-  data () {
-    return {
-      category: ''
-    }
-  },
   methods: {
     hideMenu: function (category) {
-      this.category = category
       document.getElementsByClassName('mdl-layout__drawer')[0].classList.remove('is-visible')
       document.getElementsByClassName('mdl-layout__obfuscator')[0].classList.remove('is-visible')
     }

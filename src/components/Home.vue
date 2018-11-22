@@ -48,19 +48,29 @@ export default {
       })
     },
     fetchNews () {
-      this.$newsapi.v2.topHeadlines({
-        category: this.category,
-        country: 'ng'
-      }).then(response => {
+      if (navigator.onLine) {
+        this.$newsapi.v2.topHeadlines({
+          category: this.category,
+          country: 'ng'
+        }).then(response => {
+          this.dbPromise().then(db => {
+            let store = db.transaction('hapnns', 'readwrite').objectStore('hapnns')
+            response.articles.forEach(hapnn => {
+              store.put(hapnn)
+            })
+          })
+          this.articles = response.articles
+          console.log(response)
+        }).catch(error => console.log(error))
+        console.log('online')
+      } else {
         this.dbPromise().then(db => {
-          let store = db.transaction('hapnns', 'readwrite').objectStore('hapnns')
-          response.articles.forEach(hapnn => {
-            store.put(hapnn)
+          let storedArticles = db.transaction('hapnns').objectStore('hapnns').getAll()
+          return storedArticles.then(articles => {
+            this.articles = articles.reverse()
           })
         })
-        this.articles = response.articles
-        console.log(response)
-      }).catch(error => console.log(error))
+      }
     }
   },
   created () {

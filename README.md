@@ -1,5 +1,6 @@
 ### About Hapnn
 A progressive web application that displays live top and breaking news headlines from Nigeria
+[Live preview](https://hapnn.netlify.com)
 
 Online            |  Offline
 :-------------------------:|:-------------------------:

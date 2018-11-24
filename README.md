@@ -1,27 +1,24 @@
-# hapnn
+### About Hapnn
+A progressive web application that displays live top and breaking news headlines from Nigeria
 
-> A progressive web application that lets users view and post anonymously (work in progress)
+Online            |  Offline
+:-------------------------:|:-------------------------:
+![](online-demo.gif)  |  ![](offline-demo.gif)
 
-## Build Setup
-
+### Build Setup
 ``` bash
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
-
 # build for production with minification
 npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
+# in order to emulate HTTP server and serve Hapnn
+npm install -g serve
+serve dist/
 
-# run unit tests
-npm run unit
-
-# run all tests
-npm test
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### Tools and Technologies
+* Vue.js
+* Service worker
+* IndexDB

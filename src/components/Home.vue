@@ -3,7 +3,8 @@
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--3-col mdl-cell mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
       <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
-        <div class="card" v-for="(article, index) in articles" :key="index">
+        <div class="loader" v-show="loading"><cube-spin></cube-spin></div>
+        <div v-show="!loading" class="card" v-for="(article, index) in articles" :key="index">
           <h3>{{article.title}}</h3>
           <small>{{article.publishedAt}}</small>
           <img :src="article.urlToImage ? article.urlToImage : 'static/img/no-image.jpg'">
@@ -21,13 +22,16 @@
 
 <script>
 import idb from 'idb'
+import CubeSpin from 'vue-loading-spinner/src/components/DoubleBounce'
 export default {
   name: 'home',
   data () {
     return {
-      articles: []
+      articles: [],
+      loading: false
     }
   },
+  components: { CubeSpin },
   props: ['category'],
   watch: {
     category (newCategory, oldCategory) {
@@ -48,6 +52,7 @@ export default {
       })
     },
     fetchNews () {
+      this.loading = true
       if (navigator.onLine) {
         this.$newsapi.v2.topHeadlines({
           category: this.category === 'all' ? '' : this.category,
@@ -67,13 +72,17 @@ export default {
               return cursor.continue().then(deleteRest)
             })
           })
+          this.loading = false
           this.articles = response.articles
         }).catch(error => console.log(error))
       } else {
         this.dbPromise().then(db => {
           let storedArticles = db.transaction('hapnns').objectStore('hapnns').getAll()
           return storedArticles.then(articles => {
-            this.articles = articles.reverse()
+            setTimeout(() => {
+              this.loading = false
+              this.articles = articles.reverse()
+            }, 2000)
           })
         })
       }
